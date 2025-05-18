@@ -18,6 +18,7 @@ Datasets are stored under the `datasets/` directory created at runtime.
 
 Install the required packages and run the server. The root page `/` provides a simple browser UI for uploading datasets and starting training jobs:
 
+
 ```bash
 pip install flask ultralytics
 python -m mlops_system.app

@@ -17,6 +17,7 @@ def index():
     """Render simple UI."""
     return render_template('index.html')
 
+
 @app.route('/upload', methods=['POST'])
 @requires_auth
 def upload():

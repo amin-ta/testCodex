@@ -3,7 +3,7 @@ from typing import Optional
 
 from ultralytics import YOLO
 
-from mlops_system.dataset import DATASET_DIR
+from .dataset import DATASET_DIR
 
 
 

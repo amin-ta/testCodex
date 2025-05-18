@@ -7,7 +7,7 @@ handle image datasets and training jobs. It uses **Flask** for the API layer and
 ## Structure
 
 - `mlops_system/` contains the application modules:
-  - `app.py` – Flask server exposing dataset and training endpoints.
+ - `app.py` – Flask server exposing dataset and training endpoints and serving a small web UI.
   - `dataset.py` – utilities for uploading, listing and merging datasets.
   - `training.py` – wrapper that launches YOLO training.
   - `auth.py` – very simple token based authentication helper.
@@ -16,7 +16,8 @@ Datasets are stored under the `datasets/` directory created at runtime.
 
 ## Usage
 
-Install the required packages and run the server:
+Install the required packages and run the server. The root page `/` provides a simple browser UI for uploading datasets and starting training jobs:
+
 
 ```bash
 pip install flask ultralytics
@@ -31,6 +32,8 @@ Example endpoints:
 - `GET /datasets` – list available datasets.
 - `POST /datasets/merge` – JSON body `{ "names": [..], "format": "zip" }`.
 - `POST /datasets/<name>/train` – JSON body `{ "val_split": 0.2 }` to start YOLO training.
+
+You can also use the web interface at `/` instead of calling the endpoints manually.
 
 This project is a minimal skeleton and does not implement advanced features such
 as user permissions, searching by object labels or a production-ready auth

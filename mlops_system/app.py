@@ -1,17 +1,22 @@
 import os
-from flask import Flask, request, jsonify, send_file
+from flask import Flask, request, jsonify, send_file, render_template
 
-from mlops_system.auth import requires_auth
-from mlops_system.dataset import (
-    upload_dataset,
-    list_datasets,
-    merge_datasets,
-    DATASET_DIR,
+from .auth import requires_auth
+from .dataset import upload_dataset, list_datasets, merge_datasets, DATASET_DIR
+from .training import train_yolo
+
+app = Flask(
+    __name__,
+    static_folder='static',
+    template_folder='templates'
 )
-from mlops_system.training import train_yolo
 
 
-app = Flask(__name__)
+@app.route('/')
+def index():
+    """Render simple UI."""
+    return render_template('index.html')
+
 
 @app.route('/upload', methods=['POST'])
 @requires_auth

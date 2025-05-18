@@ -10,6 +10,7 @@ from mlops_system.dataset import (
 )
 from mlops_system.training import train_yolo
 
+
 app = Flask(__name__)
 
 @app.route('/upload', methods=['POST'])

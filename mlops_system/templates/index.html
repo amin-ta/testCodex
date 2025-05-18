@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MLOps Demo</title>
+    <script src="/static/app.js"></script>
+</head>
+<body>
+<h1>MLOps System</h1>
+
+<section>
+  <h2>Auth Token</h2>
+  <input id="token" type="text" placeholder="token" />
+  <button onclick="setToken()">Set Token</button>
+</section>
+
+<section>
+  <h2>Upload Dataset</h2>
+  <input id="datasetName" placeholder="dataset name" />
+  <input id="datasetFile" type="file" />
+  <button onclick="uploadDataset()">Upload</button>
+</section>
+
+<section>
+  <h2>Datasets</h2>
+  <ul id="datasets"></ul>
+</section>
+
+<section>
+  <h2>Train YOLO</h2>
+  <select id="trainDataset"></select>
+  <input id="valSplit" value="0.2" />
+  <button onclick="trainDataset()">Train</button>
+</section>
+</body>
+</html>

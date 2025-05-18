@@ -3,7 +3,8 @@ from typing import Optional
 
 from ultralytics import YOLO
 
-from .dataset import DATASET_DIR
+from mlops_system.dataset import DATASET_DIR
+
 
 
 def train_yolo(dataset_name: str, val_split: float = 0.2, model: str = "yolov8n.pt", epochs: int = 10) -> str:

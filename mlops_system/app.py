@@ -1,9 +1,15 @@
 import os
 from flask import Flask, request, jsonify, send_file
 
-from .auth import requires_auth
-from .dataset import upload_dataset, list_datasets, merge_datasets, DATASET_DIR
-from .training import train_yolo
+from mlops_system.auth import requires_auth
+from mlops_system.dataset import (
+    upload_dataset,
+    list_datasets,
+    merge_datasets,
+    DATASET_DIR,
+)
+from mlops_system.training import train_yolo
+
 
 app = Flask(__name__)
 

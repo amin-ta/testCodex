@@ -1,0 +1,10 @@
+{
+  "name": "reward-distributor",
+  "private": true,
+  "type": "commonjs",
+  "dependencies": {
+    "ethers": "^5.7.2",
+    "merkletreejs": "^0.2.34",
+    "keccak256": "^1.0.6"
+  }
+}

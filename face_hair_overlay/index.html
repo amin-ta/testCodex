@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Face Hair Demo</title>
+<style>
+ body { font-family: sans-serif; margin: 0; padding: 20px; }
+ #controls { margin-bottom: 1em; }
+ #container { position: relative; display: inline-block; }
+ canvas { max-width: 100%; }
+ #threeContainer { position: absolute; top: 0; left: 0; pointer-events: none; }
+</style>
+</head>
+<body>
+<div id="controls">
+ <input type="file" id="imageUpload" accept="image/*" />
+ <button id="saveButton">Save Annotated Image</button>
+</div>
+<div id="container">
+ <canvas id="imageCanvas"></canvas>
+ <div id="threeContainer"></div>
+</div>
+<p id="poseText"></p>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ml5/0.12.2/ml5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+const upload = document.getElementById('imageUpload');
+const canvas = document.getElementById('imageCanvas');
+const ctx = canvas.getContext('2d');
+const poseText = document.getElementById('poseText');
+let facemesh, currentImg, three;
+
+upload.addEventListener('change', handleImage);
+document.getElementById('saveButton').addEventListener('click', () => {
+ const link = document.createElement('a');
+ link.href = canvas.toDataURL();
+ link.download = 'annotated.png';
+ link.click();
+});
+
+function handleImage(evt) {
+ const file = evt.target.files[0];
+ if (!file) return;
+ const reader = new FileReader();
+ reader.onload = e => {
+   currentImg = new Image();
+   currentImg.onload = () => {
+     canvas.width = currentImg.width;
+     canvas.height = currentImg.height;
+     ctx.drawImage(currentImg, 0, 0);
+     poseText.textContent = 'Loading model...';
+     if (!facemesh) {
+       facemesh = ml5.facemesh(modelReady);
+     } else {
+       predict();
+     }
+     setup3D();
+   };
+   currentImg.src = e.target.result;
+ };
+ reader.readAsDataURL(file);
+}
+
+function modelReady() {
+ poseText.textContent = 'Model ready, detecting...';
+ predict();
+}
+
+function predict() {
+ facemesh.estimateFaces(currentImg).then(results => {
+   ctx.drawImage(currentImg, 0, 0);
+   if (results.length > 0) {
+     const points = results[0].scaledMesh;
+     ctx.fillStyle = '#00FF00';
+     for (let i = 0; i < points.length; i++) {
+       const [x, y] = points[i];
+       ctx.fillRect(x, y, 2, 2);
+     }
+     const pose = computeHeadPose(points, currentImg.width, currentImg.height);
+     poseText.textContent = `Yaw: ${pose.yaw.toFixed(2)} Pitch: ${pose.pitch.toFixed(2)} Roll: ${pose.roll.toFixed(2)}`;
+     updateHair(pose);
+   }
+ });
+}
+
+function computeHeadPose(points, w, h) {
+ const leftEye = points[33];
+ const rightEye = points[263];
+ const nose = points[1];
+ const mouth = points[13];
+ const dx = leftEye[0] - rightEye[0];
+ const dy = leftEye[1] - rightEye[1];
+ const roll = Math.atan2(dy, dx);
+ const centerEyeX = (leftEye[0] + rightEye[0]) / 2;
+ const yaw = (nose[0] - centerEyeX) / w;
+ const pitch = (nose[1] - mouth[1]) / h;
+ return { yaw, pitch, roll };
+}
+
+function setup3D() {
+ const container = document.getElementById('threeContainer');
+ container.innerHTML = '';
+ const width = canvas.width;
+ const height = canvas.height;
+ three = {};
+ three.scene = new THREE.Scene();
+ three.camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+ three.renderer = new THREE.WebGLRenderer({ alpha: true });
+ three.renderer.setSize(width, height);
+ container.appendChild(three.renderer.domElement);
+ const geometry = new THREE.ConeGeometry(1, 2, 32);
+ const material = new THREE.MeshNormalMaterial({ wireframe: true });
+ three.hair = new THREE.Mesh(geometry, material);
+ three.scene.add(three.hair);
+ three.camera.position.z = 5;
+ three.renderer.render(three.scene, three.camera);
+}
+
+function updateHair(pose) {
+ if (!three) return;
+ three.hair.rotation.y = pose.yaw * 2;
+ three.hair.rotation.x = -pose.pitch * 2;
+ three.hair.rotation.z = -pose.roll;
+ three.renderer.render(three.scene, three.camera);
+}
+</script>
+</body>
+</html>

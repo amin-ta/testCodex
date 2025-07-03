@@ -1,0 +1,4 @@
+body { font-family: Arial, sans-serif; text-align: center; }
+#canvasContainer { position: relative; display: inline-block; }
+#overlay { position: absolute; top: 0; left: 0; }
+#threeContainer { width: 640px; height: 480px; margin: 20px auto; }

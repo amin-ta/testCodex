@@ -18,12 +18,6 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/face')
-def face_demo():
-    """Render face hair demo page."""
-    return render_template('face_app/index.html')
-
-
 @app.route('/upload', methods=['POST'])
 @requires_auth
 def upload():

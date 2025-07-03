@@ -14,6 +14,14 @@ handle image datasets and training jobs. It uses **Flask** for the API layer and
 
 Datasets are stored under the `datasets/` directory created at runtime.
 
+### Face landmark demo
+
+A small demo for detecting face landmarks with [ml5.js](https://ml5js.org/) and
+overlaying a simple 3D hair model is provided under
+`mlops_system/static/face_app/`. Open `index.html` in that folder directly in a
+browser or serve it with any static HTTP server. No Python backend is required
+to run this page.
+
 ## Usage
 
 Install the required packages and run the server. The root page `/` provides a simple browser UI for uploading datasets and starting training jobs:

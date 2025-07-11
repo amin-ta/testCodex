@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="fa" class="h-full">
+<head>
+<meta charset="UTF-8">
+<title>Offline Todo & Prayer Times</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<style>
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color, #f0f0f0);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: var(--text-color, #000);
+  }
+  .dark {
+    --bg-color: #121212;
+    --text-color: #f0f0f0;
+  }
+  .theme-blue { --bg-color: #e0f0ff; }
+  .theme-red { --bg-color: #ffe0e0; }
+  ul.tasks { list-style: none; padding: 0; }
+  ul.tasks li { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; }
+  ul.tasks li.completed span { text-decoration: line-through; color: #888; }
+</style>
+</head>
+<body class="min-h-screen flex flex-col items-center py-6">
+<header class="text-center mb-6">
+  <h1 class="text-2xl font-semibold mb-2">لیست کارها و اوقات شرعی مشهد</h1>
+  <div id="time" class="text-lg"></div>
+  <div id="date-fa" class="text-lg"></div>
+  <div id="date-en" class="text-lg"></div>
+</header>
+<div class="flex space-x-2 mb-4">
+  <select id="themeSelect" class="border rounded p-2">
+    <option value="default">پیش‌فرض</option>
+    <option value="dark">حالت شب</option>
+    <option value="blue">آبی</option>
+    <option value="red">قرمز</option>
+  </select>
+  <button id="bgButton" class="border rounded p-2 flex items-center space-x-1">
+    <span class="material-icons">image</span>
+    <span>پس‌زمینه</span>
+  </button>
+  <button id="resetBg" class="border rounded p-2 hidden">حذف پس‌زمینه</button>
+  <input id="bgInput" type="file" accept="image/*" class="hidden">
+</div>
+<div class="todo w-full max-w-lg bg-white/80 dark:bg-gray-800/80 backdrop-blur rounded-lg shadow p-4 mb-6">
+  <h2 class="text-lg font-semibold mb-4">کارهای من</h2>
+  <div class="flex mb-4">
+    <input id="taskInput" type="text" placeholder="کار جدید..." class="flex-1 border rounded-l p-2" />
+    <button onclick="addTask()" class="bg-blue-500 text-white rounded-r px-4"><i class="fa fa-plus"></i></button>
+  </div>
+  <ul id="taskList" class="tasks divide-y"></ul>
+</div>
+<div class="prayers w-full max-w-lg bg-white/80 dark:bg-gray-800/80 backdrop-blur rounded-lg shadow p-4">
+  <h2 class="text-lg font-semibold mb-4">اوقات شرعی</h2>
+  <table class="w-full text-center">
+    <tr><td><i class="fa fa-sun"></i> اذان صبح</td><td id="fajr"></td></tr>
+    <tr><td><i class="fa fa-sun"></i> طلوع آفتاب</td><td id="sunrise"></td></tr>
+    <tr><td><i class="fa fa-sun"></i> اذان ظهر</td><td id="dhuhr"></td></tr>
+    <tr><td><i class="fa fa-sun"></i> عصر</td><td id="asr"></td></tr>
+    <tr><td><i class="fa fa-moon"></i> غروب</td><td id="maghrib"></td></tr>
+    <tr><td><i class="fa fa-moon"></i> اذان عشا</td><td id="isha"></td></tr>
+  </table>
+</div>
+<script>
+const LAT = 36.2605; // Mashhad
+const LNG = 59.6168;
+const TIMEZONE = 3.5; // Iran standard
+
+function pad(n){return n<10?'0'+n:n;}
+
+function updateClock(){
+  const now = new Date();
+  const optionsFa = { calendar: 'persian', day: 'numeric', month:'long', year:'numeric', weekday:'long' };
+  document.getElementById('time').textContent = now.toLocaleTimeString('fa-IR',{hour12:false});
+  document.getElementById('date-fa').textContent = now.toLocaleDateString('fa-IR-u-ca-persian', optionsFa);
+  document.getElementById('date-en').textContent = now.toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric'});
+}
+setInterval(updateClock,1000);
+updateClock();
+
+// Todo list
+let tasks = JSON.parse(localStorage.getItem('tasks')||'[]');
+function renderTasks(){
+  const list=document.getElementById('taskList');
+  list.innerHTML='';
+  tasks.forEach((t,i)=>{
+    const li=document.createElement('li');
+    li.className=t.done?'completed':'';
+    const span=document.createElement('span');
+    span.textContent=t.text;
+    span.onclick=()=>toggleTask(i);
+    const btn=document.createElement('button');
+    btn.innerHTML='<i class="fa fa-trash"></i>';
+    btn.onclick=()=>removeTask(i);
+    li.appendChild(span);
+    li.appendChild(btn);
+    list.appendChild(li);
+  });
+}
+function addTask(){
+  const input=document.getElementById('taskInput');
+  const text=input.value.trim();
+  if(!text) return;
+  tasks.push({text,done:false});
+  input.value='';
+  saveTasks();
+}
+function toggleTask(i){
+  tasks[i].done=!tasks[i].done;
+  saveTasks();
+}
+function removeTask(i){
+  tasks.splice(i,1);
+  saveTasks();
+}
+function saveTasks(){
+  localStorage.setItem('tasks',JSON.stringify(tasks));
+  renderTasks();
+}
+renderTasks();
+
+// Themes
+const themeSelect=document.getElementById('themeSelect');
+function applyTheme(t){
+  document.body.classList.remove('dark','theme-blue','theme-red');
+  if(t==='dark') document.body.classList.add('dark');
+  if(t==='blue') document.body.classList.add('theme-blue');
+  if(t==='red') document.body.classList.add('theme-red');
+  localStorage.setItem('theme',t);
+}
+themeSelect.addEventListener('change',()=>applyTheme(themeSelect.value));
+const storedTheme=localStorage.getItem('theme');
+if(storedTheme){themeSelect.value=storedTheme;applyTheme(storedTheme);}
+
+// Background image upload
+const bgButton=document.getElementById('bgButton');
+const bgInput=document.getElementById('bgInput');
+const resetBg=document.getElementById('resetBg');
+bgButton.addEventListener('click',()=>bgInput.click());
+bgInput.addEventListener('change',()=>{
+  const file=bgInput.files[0];
+  if(!file) return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const data=e.target.result;
+    document.body.style.backgroundImage=`url(${data})`;
+    localStorage.setItem('bgImage',data);
+    resetBg.classList.remove('hidden');
+  };
+  reader.readAsDataURL(file);
+});
+resetBg.addEventListener('click',()=>{
+  document.body.style.backgroundImage='';
+  localStorage.removeItem('bgImage');
+  resetBg.classList.add('hidden');
+});
+const storedBg=localStorage.getItem('bgImage');
+if(storedBg){
+  document.body.style.backgroundImage=`url(${storedBg})`;
+  resetBg.classList.remove('hidden');
+}
+
+// Prayer times algorithm (simplified PrayTimes)
+const rad=Math.PI/180;
+function sin(d){return Math.sin(d*rad);} 
+function cos(d){return Math.cos(d*rad);} 
+function tan(d){return Math.tan(d*rad);} 
+function arcsin(x){return Math.asin(x)/rad;} 
+function arccos(x){return Math.acos(x)/rad;} 
+function arccot(x){return Math.atan(1/x)/rad;} 
+function fixAngle(a){return a-360*Math.floor(a/360);} 
+function fixHour(a){return a-24*Math.floor(a/24);} 
+
+function julian(date){return date/86400000- date.getTimezoneOffset()/1440 + 2440587.5;}
+function sunPosition(jd){
+  var D=jd-2451545;
+  var g=fixAngle(357.529+0.98560028*D);
+  var q=fixAngle(280.459+0.98564736*D);
+  var L=fixAngle(q+1.915*sin(g)+0.020*sin(2*g));
+  var e=23.439-0.00000036*D;
+  var RA=arctan2(cos(e)*sin(L),cos(L))/15;
+  RA=fixHour(RA);
+  var decl=arcsin(sin(e)*sin(L));
+  var eqt=q/15-RA;
+  return {decl:decl,eqt:eqt};
+}
+function arctan2(y,x){return Math.atan2(y,x)/rad;}
+function sunAngleTime(angle,afterNoon,lat,decl,noon){
+  var t=1/15*arccos(( -sin(angle)-sin(lat)*sin(decl))/(cos(lat)*cos(decl)));
+  return noon+(afterNoon?t:-t);
+}
+function getPrayerTimes(date){
+  var jd=julian(date);
+  var sp=sunPosition(jd);
+  var noon=fixHour(12 - sp.eqt + TIMEZONE - LNG/15);
+  var fajr=sunAngleTime(18,false,LAT,sp.decl,noon);
+  var sunrise=sunAngleTime(0.833,false,LAT,sp.decl,noon);
+  var dhuhr=noon;
+  var asr=sunAngleTime(arccot(1+tan(Math.abs(LAT-sp.decl))),true,LAT,sp.decl,noon);
+  var sunset=sunAngleTime(0.833,true,LAT,sp.decl,noon);
+  var maghrib=sunset;
+  var isha=sunAngleTime(17,true,LAT,sp.decl,noon);
+  return {fajr, sunrise, dhuhr, asr, maghrib, isha};
+}
+function timeString(t){
+  t=fixHour(t+0.5/60); // rounding
+  var h=Math.floor(t); var m=Math.floor((t-h)*60);
+  return pad(h)+":"+pad(m);
+}
+function updatePrayers(){
+  var now=new Date();
+  var times=getPrayerTimes(now);
+  document.getElementById('fajr').textContent=timeString(times.fajr);
+  document.getElementById('sunrise').textContent=timeString(times.sunrise);
+  document.getElementById('dhuhr').textContent=timeString(times.dhuhr);
+  document.getElementById('asr').textContent=timeString(times.asr);
+  document.getElementById('maghrib').textContent=timeString(times.maghrib);
+  document.getElementById('isha').textContent=timeString(times.isha);
+}
+updatePrayers();
+</script>
+</body>
+</html>

@@ -38,3 +38,15 @@ You can also use the web interface at `/` instead of calling the endpoints manua
 This project is a minimal skeleton and does not implement advanced features such
 as user permissions, searching by object labels or a production-ready auth
 system. It can be extended to meet specific company requirements.
+
+## Brain Game
+
+A small command-line game to practice memory, arithmetic and pattern recognition.
+Run it with:
+
+```bash
+python brain_game.py
+```
+
+The game will prompt you for the number of rounds and then present a mix of challenges.
+Correct answers increase your score. Use this to sharpen your problem-solving skills for assessments.

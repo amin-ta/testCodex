@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+  <link rel="stylesheet" as="style" onload="this.rel='stylesheet'" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Manrope:wght@400;500;700;800&amp;family=Noto+Sans:wght@400;500;700;900">
+  <title>Stitch Design Dashboard</title>
+  <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+</head>
+<body class="bg-[#171f14] min-h-screen" style="font-family: Manrope, 'Noto Sans', sans-serif;">
+<div class="layout-container flex flex-col min-h-screen">
+  <!-- Sidebar -->
+  <div class="p-4 flex flex-col w-80 bg-[#171f14]">
+    <div class="flex gap-3 items-center mb-6">
+      <div class="bg-center bg-cover rounded-full size-10" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuAv7fuRetiG67MQM38XrpFZGuTKk2Z59aX-wx6kaJz23tZLXDl8w7GNoOM5n4sWeTC-IBxKaSSuIz1qo8PM9WDTPieMQnBRVVpoM7h0Vmyc3BLx-5tDmj1RfDenZIlfwEBFOdTNVLMdbNSAmQMrsO6XmNLY6zeMQrO-AH2WGRFPkoYDIJWC6PqO2ty7W5WlMou1GcDTt4agGOQH9N9nfbJatVvCLMF9yY3HAR4eilou9MXSXeYatv6Aoudna4Ogszi4yCeb-yht0-w');"></div>
+      <div>
+        <h1 class="text-white font-medium">Sophia Carter</h1>
+        <p class="text-[#a4be9d] text-sm">@SophiaC</p>
+      </div>
+    </div>
+    <nav class="space-y-2">
+      <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-full bg-[#2f402b] text-white text-sm font-medium">
+        <svg xmlns="http://www.w3.org/2000/svg" class="size-6" fill="currentColor" viewBox="0 0 256 256">
+          <path d="M224,115.55V208a16,16,0,0,1-16,16H168a16,16,0,0,1-16-16V168a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v40a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V115.55a16,16,0,0,1,5.17-11.78l80-75.48.11-.11a16,16,0,0,1,21.53,0,1.14,1.14,0,0,0,.11.11l80,75.48A16,16,0,0,1,224,115.55Z"/>
+        </svg>
+        Dashboard
+      </a>
+      <a href="#" class="flex items-center gap-3 px-3 py-2 text-white text-sm font-medium">
+        <svg xmlns="http://www.w3.org/2000/svg" class="size-6" fill="currentColor" viewBox="0 0 256 256">
+          <path d="M223.68,66.15,135.68,18h0a15.88,15.88,0,0,0-15.36,0l-88,48.17a16,16,0,0,0-8.32,14v95.64a16,16,0,0,0,8.32,14l88,48.17a15.88,15.88,0,0,0,15.36,0l88-48.17a16,16,0,0,0,8.32-14V80.18A16,16,0,0,0,223.68,66.15ZM128,32h0l80.34,44L128,120,47.66,76ZM40,90l80,43.78v85.79L40,175.82Zm96,129.57V133.82L216,90v85.78Z"/>
+        </svg>
+        Designs
+      </a>
+      <a href="#" class="flex items-center gap-3 px-3 py-2 text-white text-sm font-medium">
+        <svg xmlns="http://www.w3.org/2000/svg" class="size-6" fill="currentColor" viewBox="0 0 256 256">
+          <path d="M184,32H72A16,16,0,0,0,56,48V224a8,8,0,0,0,12.24,6.78L128,193.43l59.77,37.35A8,8,0,0,0,200,224V48A16,16,0,0,0,184,32Zm0,16V161.57l-51.77-32.35a8,8,0,0,0-8.48,0L72,161.56V48ZM132.23,177.22a8,8,0,0,0-8.48,0L72,209.57V180.43l56-35,56,35v29.14Z"/>
+        </svg>
+        Collections
+      </a>
+      <a href="#" class="flex items-center gap-3 px-3 py-2 text-white text-sm font-medium">
+        <svg xmlns="http://www.w3.org/2000/svg" class="size-6" fill="currentColor" viewBox="0 0 256 256">
+          <path d="M239.2,97.29a16,16,0,0,0-13.81-11L166,81.17,142.72,25.81h0a15.95,15.95,0,0,0-29.44,0L90.07,81.17,30.61,86.32a16,16,0,0,0-9.11,28.06L66.61,153.8,53.09,212.34a16,16,0,0,0,23.84,17.34l51-31,51.11,31a16,16,0,0,0,23.84-17.34l-13.51-58.6,45.1-39.36A16,16,0,0,0,239.2,97.29Zm-15.22,5-45.1,39.36a16,16,0,0,0-5.08,15.71L187.35,216v0l-51.07-31a15.9,15.9,0,0,0-16.54,0l-51,31h0L82.2,157.4a16,16,0,0,0-5.08-15.71L32,102.35a.37.37,0,0,1,0-.09l59.44-5.14a16,16,0,0,0,13.35-9.75L128,32.08l23.2,55.29a16,16,0,0,0,13.35,9.75L224,102.26S224,102.32,224,102.33Z"/>
+        </svg>
+        Reviews
+      </a>
+      <a href="#" class="flex items-center gap-3 px-3 py-2 text-white text-sm font-medium">
+        <svg xmlns="http://www.w3.org/2000/svg" class="size-6" fill="currentColor" viewBox="0 0 256 256">
+          <path d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Zm88-29.84q.06-2.16,0-4.32l14.92-18.64a8,8,0,0,0,1.48-7.06,107.21,107.21,0,0,0-10.88-26.25,8,8,0,0,0-6-3.93l-23.72-2.64q-1.48-1.56-3-3L186,40.54a8,8,0,0,0-3.94-6,107.71,107.71,0,0,0-26.25-10.87,8,8,0,0,0-7.06,1.49L130.16,40Q128,40,125.84,40L107.2,25.11a8,8,0,0,0-7.06-1.48A107.6,107.6,0,0,0,73.89,34.51a8,8,0,0,0-3.93,6L67.32,64.27q-1.56,1.49-3,3L40.54,70a8,8,0,0,0-6,3.94,107.71,107.71,0,0,0-10.87,26.25,8,8,0,0,0,1.49,7.06L40,125.84Q40,128,40,130.16L25.11,148.8a8,8,0,0,0-1.48,7.06,107.21,107.21,0,0,0,10.88,26.25,8,8,0,0,0,6,3.93l23.72,2.64q1.49,1.56,3,3L70,215.46a8,8,0,0,0,3.94,6,107.71,107.71,0,0,0,26.25,10.87,8,8,0,0,0,7.06-1.49L125.84,216q2.16.06,4.32,0l18.64,14.92a8,8,0,0,0,7.06,1.48,107.21,107.21,0,0,0,26.25-10.88,8,8,0,0,0,3.93-6l2.64-23.72q1.56-1.48,3-3L215.46,186a8,8,0,0,0,6-3.94,107.71,107.71,0,0,0,10.87-26.25,8,8,0,0,0-1.49-7.06Zm-16.1-6.5a73.93,73.93,0,0,1,0,8.68,8,8,0,0,0,1.74,5.48l14.19,17.73a91.57,91.57,0,0,1-6.23,15L187,173.11a8,8,0,0,0-5.1,2.64,74.11,74.11,0,0,1-6.14,6.14,8,8,0,0,0-2.64,5.1l-2.51,22.58a91.32,91.32,0,0,1-15,6.23l-17.74-14.19a8,8,0,0,0-5-1.75h-.48a73.93,73.93,0,0,1-8.68,0,8,8,0,0,0-5.48,1.74L100.45,215.8a91.57,91.57,0,0,1-15-6.23L82.89,187a8,8,0,0,0-2.64-5.1,74.11,74.11,0,0,1-6.14-6.14,8,8,0,0,0-5.1-2.64L46.43,170.6a91.32,91.32,0,0,1-6.23-15l14.19-17.74a8,8,0,0,0,1.74-5.48,73.93,73.93,0,0,1,0-8.68,8,8,0,0,0-1.74-5.48L40.2,100.45a91.57,91.57,0,0,1,6.23-15L69,82.89a8,8,0,0,0,5.1-2.64,74.11,74.11,0,0,1,6.14-6.14A8,8,0,0,0,82.89,69L85.4,46.43a91.32,91.32,0,0,1,15-6.23l17.74,14.19a8,8,0,0,0,5.48,1.74,73.93,73.93,0,0,1,8.68,0,8,8,0,0,0,5.48-1.74L155.55,40.2a91.57,91.57,0,0,1,15,6.23L173.11,69a8,8,0,0,0,2.64,5.1,74.11,74.11,0,0,1,6.14,6.14,8,8,0,0,0,5.1,2.64l22.58,2.51a91.32,91.32,0,0,1,6.23,15l-14.19,17.74A8,8,0,0,0,199.87,123.66Z"/>
+        </svg>
+        Settings
+      </a>
+    </nav>
+  </div>
+
+  <!-- Main content -->
+  <div class="flex-1 p-4">
+    <h1 class="text-white text-3xl font-bold mb-4">Dashboard</h1>
+
+    <section class="mb-8">
+      <div class="flex items-center gap-4 mb-4">
+        <div class="bg-center bg-cover rounded-full size-32" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuD5NQf2LfTWTUARFlCtNpQsBWQuq4hP6eW6tlIelOKoFUGuyMqUVT5tnRXD1V1wX3MNU87xz_0wbsJA9fGvkXy4GiClfHnl7g5r_CWbB_NLw2oYr39lCa02vw51GHylMhQXzDPcTA4CstZMEJxnoebMA5C2_t2jWL-k7ladvAWZThn0FU1a-3JX8jA0RH5ZyvaR_Q0oCZN3P_gLBfKqtP9ywJrlhxnuRlWFAqgXhSzddZ_EVb8OLknNg0x_r1yn7avsb2jHxXM2poM');"></div>
+        <div>
+          <p class="text-white text-2xl font-bold">Sophia Carter</p>
+          <p class="text-[#a4be9d]">@SophiaC</p>
+          <p class="text-[#a4be9d]">Joined 2021</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-8">
+      <h2 class="text-white text-xl font-bold mb-3">Purchase History</h2>
+      <div class="flex mb-2 gap-2">
+        <input id="searchInput" placeholder="Search order or status" class="p-2 rounded bg-[#222e1f] text-white flex-1" />
+        <button onclick="searchOrders()" class="px-4 py-2 rounded bg-[#8cd279] text-[#171f14] font-bold">Search</button>
+      </div>
+      <div class="overflow-hidden rounded-xl border border-[#445c3d]">
+        <table class="w-full" id="ordersTable">
+          <thead class="bg-[#222e1f] text-left text-white">
+            <tr>
+              <th class="px-4 py-3">Date</th>
+              <th class="px-4 py-3">Order</th>
+              <th class="px-4 py-3">Status</th>
+              <th class="px-4 py-3">Total</th>
+            </tr>
+          </thead>
+          <tbody id="ordersBody" class="text-[#a4be9d]"></tbody>
+        </table>
+      </div>
+      <!-- Add Order Form -->
+      <div class="mt-4 space-y-2">
+        <h3 class="text-white font-bold">Add Order</h3>
+        <div class="flex gap-2 flex-wrap">
+          <input id="dateInput" type="date" class="p-2 rounded bg-[#222e1f] text-white" />
+          <input id="orderInput" placeholder="Order #" class="p-2 rounded bg-[#222e1f] text-white" />
+          <input id="statusInput" placeholder="Status" class="p-2 rounded bg-[#222e1f] text-white" />
+          <input id="totalInput" placeholder="Total" class="p-2 rounded bg-[#222e1f] text-white" />
+          <button onclick="addOrder()" class="px-4 py-2 rounded bg-[#8cd279] text-[#171f14] font-bold">Add</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-8">
+      <h2 class="text-white text-xl font-bold mb-3">Seller Tools</h2>
+      <button class="px-4 py-2 rounded bg-[#8cd279] text-[#171f14] font-bold">Download Verified Seller Badge</button>
+    </section>
+  </div>
+</div>
+
+<script>
+  const orders = [
+    { date: '05/12/2024', order: 'Order #12345', status: 'Shipped', total: '$25.00' },
+    { date: '04/28/2024', order: 'Order #67890', status: 'Delivered', total: '$35.00' },
+    { date: '03/15/2024', order: 'Order #11223', status: 'Completed', total: '$45.00' },
+  ];
+
+  function renderOrders(list) {
+    const tbody = document.getElementById('ordersBody');
+    tbody.innerHTML = '';
+    list.forEach(o => {
+      const row = document.createElement('tr');
+      row.className = 'border-t border-[#445c3d]';
+      row.innerHTML = `
+        <td class="px-4 py-2">${o.date}</td>
+        <td class="px-4 py-2">${o.order}</td>
+        <td class="px-4 py-2"><span class="px-4 py-1 rounded-full bg-[#2f402b] text-white">${o.status}</span></td>
+        <td class="px-4 py-2">${o.total}</td>`;
+      tbody.appendChild(row);
+    });
+  }
+
+  function addOrder() {
+    const date = document.getElementById('dateInput').value;
+    const order = document.getElementById('orderInput').value;
+    const status = document.getElementById('statusInput').value;
+    const total = document.getElementById('totalInput').value;
+    if (!date || !order || !status || !total) return alert('Fill all fields');
+    orders.push({ date, order, status, total });
+    renderOrders(orders);
+  }
+
+  function searchOrders() {
+    const query = document.getElementById('searchInput').value.toLowerCase();
+    const filtered = orders.filter(o =>
+      o.order.toLowerCase().includes(query) ||
+      o.status.toLowerCase().includes(query)
+    );
+    renderOrders(filtered);
+  }
+
+  // initial render
+  document.addEventListener('DOMContentLoaded', () => {
+    renderOrders(orders);
+  });
+</script>
+</body>
+</html>

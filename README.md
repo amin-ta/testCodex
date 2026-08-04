@@ -1,4 +1,4 @@
-# MLOps System Example
+# MLOps System Examples
 
 This repository provides a small demonstration of how an MLOps service might
 handle image datasets and training jobs. It uses **Flask** for the API layer and
